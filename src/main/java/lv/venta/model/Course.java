@@ -54,6 +54,7 @@ public class Course {
 	//liekam tajā klase, kuras tabulā gribēsim otras tabulas ārējo atslēgu
 	//liekam otras klases pirmās atslēgas kolonas nosaukumu
 	@JoinColumn(name = "Idp")
+	@NotNull
 	private Professor professor;
 	
 	@OneToMany(mappedBy = "course")

@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,11 +36,13 @@ public class Grade {
 	@Max(10)
 	private int grvalue;
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "Ids")
 	private Student student;
-	//TODO argumenta konstruktors
+
 	
+	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "Idc")
 	private Course course;
