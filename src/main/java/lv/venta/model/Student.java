@@ -1,5 +1,8 @@
 package lv.venta.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.hibernate.annotations.DialectOverride.GeneratedColumns;
 
 import jakarta.persistence.Column;
@@ -7,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -42,6 +46,10 @@ public class Student {
 	@NotEmpty
 	@Pattern(regexp = "[A-Ž]{1}[a-ž]{2,20}([ -]{1}([A-Ž]{1}[a-ž]{2,20}))?")
 	private String surname;
+	
+	@OneToMany(mappedBy = "student")
+	@ToString.Exclude
+	private Collection<Grade> grades = new ArrayList<Grade>();
 	
 	public Student(String name, String surname) {
 		setName(name);
