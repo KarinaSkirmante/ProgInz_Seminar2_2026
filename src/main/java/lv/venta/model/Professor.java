@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -48,6 +49,14 @@ public class Professor {
 	@Column(name = "Degree")
 	@Enumerated(EnumType.STRING)
 	private Degree degree;
+	
+	
+	//mappedBy jaliek uz otras klases mainīgā nosaukumu
+	@OneToOne(mappedBy = "professor")
+	@ToString.Exclude //neiekļaut šo mainīgo toString funkcijas veidošanā
+	//@JsonIgnore <-līdzīgi ka @ToString.Exclude, lai neveidojas cirkulārie izsaukumi
+	private Course course;
+	
 	
 	public Professor(String name, String surname, Degree degree) {
 		setName(name);

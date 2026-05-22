@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -44,6 +46,16 @@ public class Course {
 	@Max(40)
 	private int creditpoints;
 	
-	//TODO argumenta konstruktors
+	@OneToOne //saite viens pret viens - katrā puse ir tikai viens otras klases objekts
+	//liekam tajā klase, kuras tabulā gribēsim otras tabulas ārējo atslēgu
+	//liekam otras klases pirmās atslēgas kolonas nosaukumu
+	@JoinColumn(name = "Idp")
+	private Professor professor;
+	
+	public Course(String title, int creditpoints, Professor professor) {
+		setTitle(title);
+		setCreditpoints(creditpoints);
+		setProfessor(professor);
+	}
 
 }
