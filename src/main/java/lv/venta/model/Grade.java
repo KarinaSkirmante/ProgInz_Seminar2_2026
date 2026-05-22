@@ -39,5 +39,15 @@ public class Grade {
 	@JoinColumn(name = "Ids")
 	private Student student;
 	//TODO argumenta konstruktors
+	
+	@ManyToOne
+	@JoinColumn(name = "Idc")
+	private Course course;
+	
+	public Grade(int grvalue, Student student,Course course) {
+		setGrvalue(grvalue);
+		setStudent(student);
+		setCourse(course);
+	}
 
 }
