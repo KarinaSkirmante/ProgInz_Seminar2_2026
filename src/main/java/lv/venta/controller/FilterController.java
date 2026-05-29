@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import lv.venta.model.enums.Degree;
 import lv.venta.service.IFilterService;
 
 @Controller
@@ -46,5 +47,25 @@ public class FilterController {
 			return "error-page";
 		}
 	}
+	
+	@GetMapping("/course/professor/{degree}")//localhost:8080/filter/course/professor/master
+	public String getControllerCourseByProfessorDegree(@PathVariable(name = "degree")
+			Degree degree, Model model) {
+		try
+		{
+		model.addAttribute("package", filterService.filterCoursesByProfessorDegree(degree));
+			return "show-multiple-courses";
+		}
+		catch (Exception e) {
+			//e.printStackTrace();
+			model.addAttribute("package", e.getMessage());
+			return "error-page";
+		}
+		
+	}
+	
+	
+	
+	
 
 }
