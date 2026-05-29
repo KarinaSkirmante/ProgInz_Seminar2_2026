@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lv.venta.model.Course;
 import lv.venta.model.Grade;
+import lv.venta.model.Student;
 import lv.venta.model.enums.Degree;
 import lv.venta.repo.ICourseRepo;
 import lv.venta.repo.IGradeRepo;
@@ -90,6 +91,30 @@ public class FilterServiceImpl implements IFilterService {
 					+ "kurš butu piesaistīt profesoram ar grādu " + degree);
 		}
 		
+		return results;
+	}
+
+	@Override
+	public ArrayList<Student> filterStudentsFailed() throws Exception {
+		// TODO 
+		//ja atzimju tabula ir tukšā
+		if(gradeRepo.count() == 0) {
+			throw new Exception("Atzīmju tabula ir tukša un nevar filtrēt");
+		}
+		//ja studentu tabula ir tukša
+		if(studRepo.count() == 0) {
+			throw new Exception("Studentu tabula ir tukša un nevar atrast studentus, kuri ir nesekmīgi");
+		}
+		//izveidot results un atlasīt visus studentus,
+		//kam ir atzīmes mazakas par 4
+		
+		ArrayList<Student> results = studRepo.findByGradesGrvalueLessThan(4);
+		
+		//ja nav stuentu, kuri ir nesekmīgi
+		if(results.isEmpty()) {
+			throw new Exception("Nav neviens students, kuram butu nesekmīga atzīme");
+		}
+		//atgriežam results
 		return results;
 	}
 

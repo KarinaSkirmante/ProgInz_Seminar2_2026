@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import lv.venta.model.Course;
 import lv.venta.model.Grade;
+import lv.venta.model.Student;
 import lv.venta.model.enums.Degree;
 
 public interface IFilterService {
@@ -16,5 +17,8 @@ public interface IFilterService {
 	
 	public abstract ArrayList<Course> filterCoursesByProfessorDegree(Degree degree)
 		throws Exception;
+	
+	public abstract ArrayList<Student> filterStudentsFailed() 
+			throws Exception;
 }
 
