@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import lv.venta.model.Course;
 import lv.venta.model.Grade;
 import lv.venta.model.enums.Degree;
+import lv.venta.repo.ICourseRepo;
 import lv.venta.repo.IGradeRepo;
+import lv.venta.repo.IProfessorRepo;
 import lv.venta.repo.IStudentRepo;
 import lv.venta.service.IFilterService;
 
@@ -20,6 +22,12 @@ public class FilterServiceImpl implements IFilterService {
 	
 	@Autowired
 	private IGradeRepo gradeRepo;
+	
+	@Autowired
+	private ICourseRepo courseRepo;
+	
+	@Autowired
+	private IProfessorRepo profRepo;
 	
 	@Override
 	public ArrayList<Grade> filterGradesByStudentId(long id) throws Exception {
@@ -43,14 +51,46 @@ public class FilterServiceImpl implements IFilterService {
 
 	@Override
 	public ArrayList<Grade> filterGradesByCourseTitle(String title) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if(gradeRepo.count() == 0) {
+			throw new Exception("Atzīmju tabula ir tukša un nav iespējams filtrēt atzīmes");
+		}
+		
+		if(title == null || title.isEmpty() || !title.matches("[A-Ž]{1}[A-Ža-ž0-9 ]{3,40}")) {
+			throw new Exception("Kursa nosaukums nav ievadīts korekti");
+		}
+		
+		if(!courseRepo.existsByTitle(title)) {
+			throw new Exception("Kurss ar nosaukumu " + title + " neeksistē");
+		}
+		ArrayList<Grade> results = gradeRepo.findByCourseTitle(title);
+		if(results.isEmpty()) {
+			throw new Exception("Nav neviena atzīme, kura ir piesaistīta kursam " + title);
+		}
+
+		return results;
 	}
 
 	@Override
 	public ArrayList<Course> filterCoursesByProfessorDegree(Degree degree) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if(courseRepo.count() == 0) {
+			throw new Exception("Kursa tabula ir tukša un nevar filtrēt kursus");
+		}
+		
+		if(degree == null) {
+			throw new Exception("Profesora grāds nav ievadīts korekti");
+		}
+		
+		if(!profRepo.existsByDegree(degree)) {
+			throw new Exception("Profesori ar " + degree + " grādu neeksistē");
+		}
+		
+		ArrayList<Course> results = courseRepo.findByProfessorDegree(degree);
+		if(results.isEmpty()) {
+			throw new Exception("Nav neviens kurss, "
+					+ "kurš butu piesaistīt profesoram ar grādu " + degree);
+		}
+		
+		return results;
 	}
 
 }
