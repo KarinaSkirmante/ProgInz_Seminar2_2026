@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lv.venta.model.Grade;
 import lv.venta.model.Student;
+import lv.venta.repo.IGradeRepo;
 import lv.venta.repo.IStudentRepo;
 import lv.venta.service.ICRUDStudentService;
 
@@ -14,6 +16,9 @@ public class CRUDStudentServiceImpl implements ICRUDStudentService{
 
 	@Autowired
 	private IStudentRepo studRepo;
+	
+	@Autowired
+	private IGradeRepo gradeRepo;
 	
 	//TODO create un update pabeigt mājās, pēc līdzīga piemera, kā product (Sem1) create un update 
 	
@@ -33,13 +38,35 @@ public class CRUDStudentServiceImpl implements ICRUDStudentService{
 
 	@Override
 	public Student retrieveById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if(studRepo.count() == 0) {
+			throw new Exception("Studentu tabula ir tukša un nevar atgreizts nevienu studentu");
+		}
+		
+		if(id < 1) {
+			throw new Exception("Id nevar būt negatīvs vai 0");
+		}
+		
+		if(!studRepo.existsById(id)) {
+			throw new Exception("Students ar id " + id + " neeksistē");
+		}
+		
+		
+		return studRepo.findById(id).get();
 	}
 
 	@Override
 	public void deleteById(long id) throws Exception {
-		// TODO Auto-generated method stub
+		Student studentForDeletion = retrieveById(id);
+		
+		ArrayList<Grade> allGradesForStudent = gradeRepo.findByStudentIds(id);
+		
+		for(Grade tempG : allGradesForStudent) {
+			tempG.setStudent(null);//noņemt saiti uz studenta id grade tabulā
+			gradeRepo.save(tempG);
+			
+		}
+				
+		studRepo.delete(studentForDeletion);
 		
 	}
 
