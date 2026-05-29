@@ -31,5 +31,20 @@ public class FilterController {
 			return "error-page";
 		}
 	}
+	
+	@GetMapping("/grade/course/{title}")//localhost:8080/filter/grade/course/Programmēšana JAVA
+	public String getControllerGradesByCourseTitle(@PathVariable(name = "title")
+	String title, Model model) {
+		try
+		{
+		model.addAttribute("package", filterService.filterGradesByCourseTitle(title));
+		return "show-multiple-grades";
+		}
+		catch (Exception e) {
+			//e.printStackTrace();
+			model.addAttribute("package", e.getMessage());
+			return "error-page";
+		}
+	}
 
 }
