@@ -58,7 +58,7 @@ public class CRUDStudentServiceImpl implements ICRUDStudentService{
 	public void deleteById(long id) throws Exception {
 		Student studentForDeletion = retrieveById(id);
 		
-		ArrayList<Grade> allGradesForStudent = gradeRepo.findByStudentIds(id);
+		ArrayList<Grade> allGradesForStudent = gradeRepo.findByStudentIdp(id);
 		
 		for(Grade tempG : allGradesForStudent) {
 			tempG.setStudent(null);//noņemt saiti uz studenta id grade tabulā

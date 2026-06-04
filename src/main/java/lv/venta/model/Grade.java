@@ -38,7 +38,7 @@ public class Grade {
 	
 	//@NotNull <-šo aizkomentejam, lai varētu arī pastāvēt atzīme pēc studenta dzēšanas
 	@ManyToOne
-	@JoinColumn(name = "Ids")
+	@JoinColumn(name = "Idp")
 	private Student student;
 
 	

@@ -17,7 +17,7 @@ public class FilterController {
 	@Autowired
 	private IFilterService filterService;
 	
-	@GetMapping("/grade/student/{id}")//localhost:8080/filter/grade/student/1
+	@GetMapping("/grade/student/{id}")//localhost:8080/filter/grade/student/3 (jo mantošanā studenti piemērā sākas no 3)
 	public String getControllerGradesByStudentId(@PathVariable(name = "id") long id,
 			Model model) {
 		
