@@ -85,7 +85,7 @@ public class FilterServiceImpl implements IFilterService {
 			throw new Exception("Profesori ar " + degree + " grādu neeksistē");
 		}
 		
-		ArrayList<Course> results = courseRepo.findByProfessorDegree(degree);
+		ArrayList<Course> results = courseRepo.findByProfessorsDegree(degree);
 		if(results.isEmpty()) {
 			throw new Exception("Nav neviens kurss, "
 					+ "kurš butu piesaistīt profesoram ar grādu " + degree);
