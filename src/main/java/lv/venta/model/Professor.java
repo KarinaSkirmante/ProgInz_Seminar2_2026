@@ -27,11 +27,6 @@ import lv.venta.model.enums.Degree;
 @Entity
 public class Professor extends Person{
 
-	@Column(name = "Idp")
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Setter(value = AccessLevel.NONE)
-	private long idp;
 	
 	@NotNull
 	@Column(name = "Degree")
@@ -47,8 +42,7 @@ public class Professor extends Person{
 	
 	
 	public Professor(String name, String surname, Degree degree) {
-		setName(name);
-		setSurname(surname);
+		super(name, surname);//so var izdarīt arī tad, ja super klasē ir @MappedSuperClass
 		setDegree(degree);
 	}
 }
