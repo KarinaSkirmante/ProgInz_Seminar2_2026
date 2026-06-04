@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -50,12 +52,15 @@ public class Course {
 	@Max(40)
 	private int creditpoints;
 	
-	@OneToOne //saite viens pret viens - katrā puse ir tikai viens otras klases objekts
+	@ManyToMany //saite viens pret viens - katrā puse ir tikai viens otras klases objekts
 	//liekam tajā klase, kuras tabulā gribēsim otras tabulas ārējo atslēgu
 	//liekam otras klases pirmās atslēgas kolonas nosaukumu
-	@JoinColumn(name = "Idp")
-	@NotNull
-	private Professor professor;
+	//veidajm starptabulu automātiski, ar Idc un Idp kolonām
+	@JoinTable(name = "CourseProfTable",
+	joinColumns = @JoinColumn(name = "Idc"),
+	inverseJoinColumns = @JoinColumn(name = "Idp"))
+	
+	private Collection<Professor> professors = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "course")
 	@ToString.Exclude
@@ -65,7 +70,15 @@ public class Course {
 	public Course(String title, int creditpoints, Professor professor) {
 		setTitle(title);
 		setCreditpoints(creditpoints);
-		setProfessor(professor);
+		addProffesor(professor);
 	}
+	
+	public void addProffesor(Professor prof) {
+		if(!professors.contains(prof))
+		{
+			professors.add(prof);
+		}
+	}
+	//TODO līdzigi uztaisīt arī removeProfessor
 
 }

@@ -37,7 +37,8 @@ public class ProgInzSeminars22026Application {
 				
 				Professor p1 = new Professor("Karina", "Šķirmante", Degree.master);
 				Professor p2 = new Professor("Kārlis", "Immers", Degree.master);
-				profRepo.saveAll(Arrays.asList(p1,p2));
+				Professor p3 = new Professor("Raita", "Rollande", Degree.phd);
+				profRepo.saveAll(Arrays.asList(p1,p2, p3));
 				
 				Student s1 = new Student("Mikus Valts", "Šarovs");
 				Student s2 = new Student("Kristers", "Dogudovs");
@@ -45,7 +46,17 @@ public class ProgInzSeminars22026Application {
 				
 				Course c1 = new Course("Programmēšana JAVA", 4, p1);//JAVA
 				Course c2 = new Course("Tīmekļa tehnoloģijas", 6, p2);//WEBTech
-				courseRepo.saveAll(Arrays.asList(c1,c2));
+				Course c3 = new Course("Programmatūras inženierija I", 6, p1);//ProgIn
+				c3.addProffesor(p3);//pielipina Raitu ProgInz
+				courseRepo.saveAll(Arrays.asList(c1,c2, c3));
+				
+				p1.addCourse(c1);//Karina JAVA
+				p1.addCourse(c3);//Karina ProgInz
+				p2.addCourse(c2);//Karlis WEBTech
+				p3.addCourse(c3);//Raita ProgInz
+				profRepo.saveAll(Arrays.asList(p1,p2, p3));
+				
+				
 				
 				Grade g1 = new Grade(8, s1, c1);//Mikus nopelnīja 8 JAVA
 				Grade g2 = new Grade(6, s1, c2);//Mikus nopelnīja 6 WEBTech
