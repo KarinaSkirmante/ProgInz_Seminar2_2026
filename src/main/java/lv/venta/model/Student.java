@@ -25,7 +25,7 @@ import lombok.ToString;
 @Setter //visiem klases mainīgajiem tiek uzģeneretas set funkcijas no lombok
 @NoArgsConstructor//no lombok
 @ToString//no lombok
-@Table(name = "StudentTable")
+//@Table(name = "StudentTable")ja inheratance stratēģija ir SINGLE_TABLE
 @Entity
 public class Student extends Person{
 		

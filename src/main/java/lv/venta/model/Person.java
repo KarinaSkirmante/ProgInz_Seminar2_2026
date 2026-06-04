@@ -27,7 +27,7 @@ import lombok.ToString;
 @Table(name = "PersonTable")
 @Entity
 //strategy = InheritanceType.TABLE_PER_CLASS <-- no katras klases, kura ir iesiastīa mantosanā, būs tabula 
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Person {
 	
 	//ja bāzes klase ir @table, tad obligāti jaieliek id
