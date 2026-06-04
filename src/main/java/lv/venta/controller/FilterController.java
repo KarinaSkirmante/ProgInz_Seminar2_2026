@@ -64,6 +64,19 @@ public class FilterController {
 		
 	}
 	
+	@GetMapping("/student/failed")//localhost:8080/filter/student/failed
+	public String getControllerFailedStudents(Model model) {
+		try
+		{
+			model.addAttribute("package", filterService.filterStudentsFailed());
+			return "show-multiple-students";
+		}
+		catch (Exception e) {
+			//e.printStackTrace();
+			model.addAttribute("package", e.getMessage());
+			return "error-page";
+		}
+	}
 	
 	
 	

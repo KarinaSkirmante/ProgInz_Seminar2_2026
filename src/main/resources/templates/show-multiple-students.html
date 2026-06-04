@@ -8,6 +8,7 @@
 			<td>Id</td>
 			<td>Vārds</td>
 			<td>Uzvārds</td>
+			<td>Atzimes</td>
 		</tr>
 		<th:block th:each="stud : ${package}">
 		<tr>
@@ -15,6 +16,9 @@
 			<td th:text="${stud.name}" ></td>
 			<td th:text="${stud.surname}" ></td>
 
+			<td th:each="gr : ${stud.grades} ">
+				<p th:text="${gr.grvalue}"></p>
+			</td>
 		</tr>
 		</th:block>
 	</table>
