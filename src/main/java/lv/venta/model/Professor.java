@@ -23,7 +23,7 @@ import lv.venta.model.enums.Degree;
 @Setter
 @NoArgsConstructor
 @ToString
-//@Table(name = "ProfessorTable") ja inheratance stratēģija ir SINGLE_TABLE
+@Table(name = "ProfessorTable") //jāaizkomēt, ja inheratance stratēģija ir SINGLE_TABLE
 @Entity
 public class Professor extends Person{
 

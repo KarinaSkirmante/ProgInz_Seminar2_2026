@@ -27,7 +27,9 @@ import lombok.ToString;
 @Table(name = "PersonTable")
 @Entity
 //strategy = InheritanceType.TABLE_PER_CLASS <-- no katras klases, kura ir iesiastīa mantosanā, būs tabula 
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//strategy = InheritanceType.SINGLE_TABLE <-- ja visus datus (bēnru un super) liekam vienā Person jeb super tabulā
+//strategy = InheritanceType.JOINED <-- super klases datu ir super tabulā, bet bērnu klases dati ir bērnu tabulā
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
 	
 	//ja bāzes klase ir @table, tad obligāti jaieliek id
