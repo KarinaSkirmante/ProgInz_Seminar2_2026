@@ -54,11 +54,6 @@ public class ProgInzSeminars22026Application {
 				gradeRepo.saveAll(Arrays.asList(g1,g2,g3,g4));
 				
 				
-				
-				//2. nodrošināt iespēju redzēt visus kursus,
-				//kuru kredītpunkti ir mazāk kā 4
-				
-				//3. pabeigt kodu, lai var izveidot jaunu studentu
 			}
 		};
 		
