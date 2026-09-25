@@ -20,5 +20,8 @@ public interface IFilterService {
 	
 	public abstract ArrayList<Student> filterStudentsFailed() 
 			throws Exception;
+	
+	public abstract ArrayList<Grade> filterExcellentGrades()
+			throws Exception;
 }
 

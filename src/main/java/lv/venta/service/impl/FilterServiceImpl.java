@@ -118,4 +118,14 @@ public class FilterServiceImpl implements IFilterService {
 		return results;
 	}
 
+	@Override
+	public ArrayList<Grade> filterExcellentGrades() throws Exception {
+		ArrayList<Grade> results = gradeRepo.findByGrvalue(10);
+		
+		if(results.isEmpty()) {
+			throw new Exception("Nav neviena atzīme 10");
+		}
+		return results;
+	}
+
 }

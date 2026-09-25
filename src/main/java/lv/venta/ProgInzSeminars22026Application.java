@@ -53,6 +53,15 @@ public class ProgInzSeminars22026Application {
 				Grade g4 = new Grade(3, s2, c2);//Kristers nopelnīja 3 WEBTech
 				gradeRepo.saveAll(Arrays.asList(g1,g2,g3,g4));
 				
+				
+				//TODO
+				//1. nodoršīnāt iespēju redzet visas atzīmes
+				//ar studentiem un kurā priekšmetā, kur ir tieši 10
+				
+				//2. nodrošināt iespēju redzēt visus kursus,
+				//kuru kredītpunkti ir mazāk kā 4
+				
+				//3. pabeigt kodu, lai var izveidot jaunu studentu
 			}
 		};
 		
