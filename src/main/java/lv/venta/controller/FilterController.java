@@ -79,6 +79,35 @@ public class FilterController {
 	}
 	
 	
+	@GetMapping("/grades/10") //localhost:8080/filter/grades/10
+	public String getControllerGrades10(Model model) {
+		try
+		{
+			model.addAttribute("package", 
+				filterService.filterExcellentGrades());
+			return "show-multiple-grades";
+		}
+		catch (Exception e) {
+			model.addAttribute("package", e.getMessage());
+			return "error-page";
+		}
+		
+	}
+	
+	@GetMapping("/courses/creditpoints/{level}")//localhost:8080/filter/courses/creditpoints/5
+	public String getControllerCoursesCpLessThan
+	(@PathVariable("level")int level, Model model) {
+		try
+		{
+		model.addAttribute("package", filterService.filterCourseByCrediPointsLessThan(level));
+			return "show-multiple-courses";
+		}
+		catch (Exception e) {
+			model.addAttribute("package", e.getMessage());
+			return "error-page";
+		}
+	}
+	
 	
 
 }

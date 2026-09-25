@@ -23,5 +23,9 @@ public interface IFilterService {
 	
 	public abstract ArrayList<Grade> filterExcellentGrades()
 			throws Exception;
+	
+	public abstract ArrayList<Course> 
+	filterCourseByCrediPointsLessThan(int level) throws Exception;
+	
 }
 

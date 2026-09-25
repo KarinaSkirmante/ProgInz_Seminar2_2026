@@ -120,10 +120,34 @@ public class FilterServiceImpl implements IFilterService {
 
 	@Override
 	public ArrayList<Grade> filterExcellentGrades() throws Exception {
+		if(gradeRepo.count()==0) {
+			throw new Exception("DB nav neviena atzīme");
+		}
+		
 		ArrayList<Grade> results = gradeRepo.findByGrvalue(10);
 		
 		if(results.isEmpty()) {
 			throw new Exception("Nav neviena atzīme 10");
+		}
+		return results;
+	}
+
+	@Override
+	public ArrayList<Course> filterCourseByCrediPointsLessThan
+	(int level) throws Exception {
+		if(courseRepo.count() == 0) {
+			throw new Exception("DB nav neviens kurss");
+		}
+		
+		if(level <= 0 || level >=51) {
+			throw new Exception("Kredītpunktu skaits var būt robežās no 1 līdz 50");
+		}
+		
+		ArrayList<Course> results = 
+				courseRepo.findByCreditpointsLessThan(level);
+		if(results.isEmpty()) {
+			throw new Exception(
+					"Nav neviens kurss, kura KP ir mazāki par " + level);
 		}
 		return results;
 	}

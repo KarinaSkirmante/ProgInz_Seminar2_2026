@@ -54,9 +54,6 @@ public class ProgInzSeminars22026Application {
 				gradeRepo.saveAll(Arrays.asList(g1,g2,g3,g4));
 				
 				
-				//TODO
-				//1. nodoršīnāt iespēju redzet visas atzīmes
-				//ar studentiem un kurā priekšmetā, kur ir tieši 10
 				
 				//2. nodrošināt iespēju redzēt visus kursus,
 				//kuru kredītpunkti ir mazāk kā 4
