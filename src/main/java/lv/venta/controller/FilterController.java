@@ -22,11 +22,10 @@ public class FilterController {
 	public String getControllerGradesByStudentId(
 			@PathVariable(name = "id") long id,
 			Model model, Authentication auth) {
-		System.out.println(auth.getName());
 		
 		try
 		{
-			model.addAttribute("package", filterService.filterGradesByStudentId(id));
+			model.addAttribute("package", filterService.filterGradesByStudentId(id, auth.getName()));
 			return "show-multiple-grades";
 		}
 		catch (Exception e) {
