@@ -48,13 +48,27 @@ public class GradeServiceImpl implements IGradeService{
 		
 		Course course = courseRepo.findByTitle(gradeDTO.getCourseTitle());
 		
-		Grade grade = new Grade(gradeDTO.getGradeValue(), stud, course);
-		gradeRepo.save(grade);
+		if(!gradeRepo.existsByGradevalueAndStudentAndCourse(
+				gradeDTO.getGradeValue(), stud, course)) {
+		
+			Grade grade = new Grade(gradeDTO.getGradeValue(), stud, course);
+			gradeRepo.save(grade);
+		}
 	}
 
 	@Override
 	public void addNewGrades(ArrayList<GradeDTO> gradesDTO) throws Exception {
-		// TODO Auto-generated method stub
+		if(gradesDTO == null) {
+			throw new Exception("Ienākošie dati nav pareizi ievadīti!");
+		}
+		
+		if(gradesDTO.isEmpty()) {
+			throw new Exception("Nav datu, ko saglabāt!");
+		}
+		
+		for(GradeDTO tempG: gradesDTO) {
+			addNewGrade(tempG);
+		}
 		
 	}
 
