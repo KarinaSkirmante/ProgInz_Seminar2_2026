@@ -3,6 +3,7 @@ package lv.venta.service.impl;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import lv.venta.model.Course;
 import lv.venta.model.Grade;
@@ -13,6 +14,7 @@ import lv.venta.repo.IGradeRepo;
 import lv.venta.repo.IStudentRepo;
 import lv.venta.service.IGradeService;
 
+@Service
 public class GradeServiceImpl implements IGradeService{
 
 	@Autowired
@@ -48,7 +50,7 @@ public class GradeServiceImpl implements IGradeService{
 		
 		Course course = courseRepo.findByTitle(gradeDTO.getCourseTitle());
 		
-		if(!gradeRepo.existsByGradevalueAndStudentAndCourse(
+		if(!gradeRepo.existsByGrvalueAndStudentAndCourse(
 				gradeDTO.getGradeValue(), stud, course)) {
 		
 			Grade grade = new Grade(gradeDTO.getGradeValue(), stud, course);
@@ -70,6 +72,23 @@ public class GradeServiceImpl implements IGradeService{
 			addNewGrade(tempG);
 		}
 		
+	}
+
+	@Override
+	public ArrayList<GradeDTO> retrieveAll() throws Exception {
+		if(gradeRepo.count()==0) {
+			throw new Exception("DB nav ne viena atzīme");
+		}
+		ArrayList<GradeDTO> result = new ArrayList<>();
+		for(Grade tempG : gradeRepo.findAll()) {
+			result.add(new GradeDTO(
+					tempG.getStudent().getName(),
+					tempG.getStudent().getSurname(),
+					tempG.getCourse().getTitle(),
+					tempG.getGrvalue()));
+		}
+		
+		return result;
 	}
 
 }
