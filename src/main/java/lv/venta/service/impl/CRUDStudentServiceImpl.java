@@ -43,6 +43,7 @@ public class CRUDStudentServiceImpl implements ICRUDStudentService{
 			throw new Exception("Studentu tabula ir tukša");
 		}
 		return (ArrayList<Student>) studRepo.findAll();
+		
 	}
 
 	@Override
