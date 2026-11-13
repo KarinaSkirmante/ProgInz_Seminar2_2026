@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -80,5 +81,52 @@ class StudentControllerTest {
 
 
 	}
+	@Test
+	public void testAddController() {
+		
+		Student st1 = new Student("Karina", "Šķirmante");
+		Student st2 = new Student("Jānis", "Bērziņš");
+		
+		ArrayList<Student> testStudents = new ArrayList<>();
+		testStudents.addAll(Arrays.asList(st1, st2));
+		
+		Student st3 = new Student("Oskars", "Domigais");
+		
+		try {
+			when(studService.create(st3)).thenReturn(st3);
+			testStudents.add(st3);
+			
+			when(studService.retrieveAll()).thenReturn(testStudents);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		try {
+			mockMVC.perform(post("/student/crud/add")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content("{"
+					+ "			\"name\": \"Oskars\","
+					+ "			\"surname\": \"Domigais\""
+					+ "		}")
+					)
+			
+			.andExpect(content()
+					.contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$[2].name", is("Oskars")))
+			.andExpect(jsonPath("$[2].surname", is("Domigais")));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
 
 }
