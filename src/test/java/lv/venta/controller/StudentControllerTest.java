@@ -1,10 +1,13 @@
 package lv.venta.controller;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
+
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -63,13 +66,18 @@ class StudentControllerTest {
 		
 		try {
 			mockMVC.perform(get("/student/crud/all"))
+			.andExpect(content().
+					contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+			.andExpect(jsonPath("$[0].name", is("Karina")))
+			.andExpect(jsonPath("$[0].surname", is("Šķirmante")))
+			.andExpect(jsonPath("$[1].name", is("Jānis")))
+			.andExpect(jsonPath("$[1].surname", is("Bērziņš")))
 			.andExpect(status().isOk());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-		//.andExpect(jsonPath(("$[0].name").valueOf("Karina"), null)) ;
+
 
 	}
 
