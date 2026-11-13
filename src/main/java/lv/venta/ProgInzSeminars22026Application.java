@@ -24,7 +24,7 @@ public class ProgInzSeminars22026Application {
 		SpringApplication.run(ProgInzSeminars22026Application.class, args);
 	}
 	
-	@Bean
+	/*@Bean
 	public CommandLineRunner saveDataInDB(IStudentRepo studRepo, 
 			IProfessorRepo profRepo, ICourseRepo courseRepo, 
 			IGradeRepo gradeRepo) {
@@ -57,6 +57,6 @@ public class ProgInzSeminars22026Application {
 			}
 		};
 		
-	}
+	}*/
 
 }
